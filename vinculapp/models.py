@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 
 class Profile(models.Model):
 	user = models.ForeignKey(User, unique = True)
-	pic = models.TextField(default = '/static/img/prof_defaultpic')
+	pic = models.TextField(default = '/static/img/example_profile.jpg')
 
 class Folder(models.Model):
 	name = models.TextField(max_length=100)
@@ -19,7 +19,7 @@ class Folder(models.Model):
 class Card(models.Model):
 	name = models.TextField(max_length=100)
 	url = models.TextField()
-	pic = models.TextField()
+	pic = models.TextField(blank=True, null=True, default = '/static/example_card.jpg')
 	folder = models.ForeignKey(Folder)
 
 	def __unicode__(self):
