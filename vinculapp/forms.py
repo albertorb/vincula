@@ -10,9 +10,9 @@ class UserForm(forms.ModelForm):
 class ProfileForm(forms.ModelForm):
     class Meta:
     	model = Profile
-    	fields = ('user', 'pic')
+    	fields = '__all__'
 
 class CardForm(forms.ModelForm):
 	class Meta:
 		model = Card
-		fields = ('name', 'url', 'pic')
+		fields = '__all__'
