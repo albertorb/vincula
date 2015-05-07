@@ -9,7 +9,7 @@ class Profile(models.Model):
 
 class Folder(models.Model):
 	name = models.TextField(max_length=100)
-	parent = models.ForeignKey(self, null = True, blank = True, default = None)
+	parent = models.ForeignKey('self', null = True, blank = True, default = None)
 
 	def __unicode__(self):
 		return self.name
@@ -19,7 +19,7 @@ class Folder(models.Model):
 class Card(models.Model):
 	name = models.TextField(max_length=100)
 	url = models.TextField()
-	pic = models.TextField(blank=True, null=True, default = '/static/example_card.jpg')
+	pic = models.TextField(blank=True, null=True, default = '/static/img/example_card.jpg')
 	folder = models.ForeignKey(Folder)
 
 	def __unicode__(self):
