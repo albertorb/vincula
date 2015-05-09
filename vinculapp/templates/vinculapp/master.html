@@ -19,46 +19,12 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
-  <body>
-    <nav class="navbar blue-gray">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <a class="navbar-brand white-text" href="#">
-            vincula
-          </a>
-        </div>
-        <div class="navbar-right">
-          <ul class="nav navbar-nav ">
-            <li class="dropdown ">
-                <a href="#" class="dropdown-toggle white-text" data-toggle="dropdown" role="button" aria-expanded="false">{% if request.user.is_authenticated%} {{request.user}} {% else %} Login {% endif %} <span class="caret"></span></a>
-                <ul class="dropdown-menu " role="menu">
-                  {% if request.user.is_authenticated%}
-                  <li><a href="#">Mi cuenta</a></li>
-                  <li class="divider"></li>
-                  <li><a href="#">Salir</a></li>
-                  {% else %}
-                  <li><a href="#">Entrar</a></li>
-                  <li class="divider"></li>
-                  <li><a href="#">Nuevo usuario</a></li>
-                  {% endif %}
-                </ul>
-            </li>
-          </ul>
-        </div>
-        <div class="nav navbar-nav">
-          <form class="navbar-form navbar-left" role="search">
-            <div class="form-group">
-              <input type="text" class="form-control" placeholder="Buscar por nombre...">
-            </div>
-            <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search" aria-hidden="true" ></span></button>
-          </form>
-        </div>
-      </div>
+  {% block body_tag %}<body>{% endblock %}
 
-    </nav>
-    {% block content %}
-    
-    {% endblock %}
+  {% block navbar %}{% endblock %}
+
+  {% block content %}{% endblock %}
+
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->

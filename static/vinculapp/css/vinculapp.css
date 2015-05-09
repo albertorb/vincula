@@ -9,3 +9,22 @@
 .white-text{
 	color: #ffffff;
 }
+
+/* Login */
+
+.login .panel{
+	margin-top: 20%;
+}
+.login h1{
+	font-size: 100px;
+	color: #ffffff;
+}
+
+.login a{
+	color: #ffffff;
+}
+
+.login .btn{
+	color: #ffffff;
+	background-color: #455a64;
+}
