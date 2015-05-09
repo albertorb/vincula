@@ -1,0 +1,47 @@
+{% extends 'vinculapp/master.html' %}
+
+{% block body_tag %}<body class="blue-gray">{% endblock %}
+{% block content %}
+
+
+<div class="container row login">
+	<div class="col-md-6 col-md-offset-5">
+		<h1>VINCULA</h1>
+	</div>
+</div>
+
+<div class="container row center-block login">
+	<div class="col-md-6 col-md-offset-3">
+		<div class="panel panel-default">
+		  <div class="panel-body">
+		    <form class="form-inline" action="/" method="post">{% csrf_token %}
+		    	<div class="row">
+	  				<div class="form-group col-md-4">
+	    				<label class="sr-only" for="email">Email address</label>
+	    				<input type="text" class="form-control" id="username" name="username" placeholder="Nombre de usuario">
+	  				</div>
+	  				<div class="form-group col-md-4 " >
+	    				<label class="sr-only" for="password">Password</label>
+	    				<input type="password" class="form-control " id="password" name="password" placeholder="Password">
+	  				</div>
+	  				<div class="col-md-4">
+	  					<button type="submit" class="btn btn-default center-block">Entrar</button>
+	  				</div>
+	  			</div>
+			</form>
+		  </div>
+		</div>
+		{% if errors %}
+		<div class="col-md-6 col-md-offset-3 alert alert-danger text-center">
+	  		<span>Credenciales incorrectas</span>
+		</div>
+		{% endif %}
+	</div>
+</div>
+<div class="container row center-block login">
+	<div class="col-md-6 col-md-offset-5">
+		<a href="/register/">¿Aún no estas registrado?</a>
+	</div>
+</div>
+
+{% endblock %}
