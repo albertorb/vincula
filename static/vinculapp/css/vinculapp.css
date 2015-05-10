@@ -10,6 +10,23 @@
 	color: #ffffff;
 }
 
+.gray-light{
+	background-color: #eceff1;
+}
+
+/* Home */
+
+.home .thumbnail{
+	background-color: #ffffff; 
+	color: #607d8b;
+	font-size: 18px;
+	text-align: center;
+}
+
+.home {
+	margin-bottom: 5%;
+}
+
 /* Login */
 
 .login .panel{

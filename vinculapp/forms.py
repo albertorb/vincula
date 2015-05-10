@@ -16,3 +16,8 @@ class CardForm(forms.ModelForm):
 	class Meta:
 		model = Card
 		fields = '__all__'
+
+class FolderForm(forms.ModelForm):
+	class Meta:
+		model = Folder
+		fields = ('name',)
