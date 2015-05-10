@@ -1,7 +1,8 @@
 # encoding: utf8
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
 from .models import *
 from .forms import *
 
@@ -30,12 +31,13 @@ def register(request):
 
 	return render(request, 'vinculapp/register.html', locals())
 
-def login(request):
+def _login(request):
 	errors = False
 	if request.POST:
 		user = authenticate(username = request.POST['username'], password = request.POST['password'])
 		if user is not None:
 			if user.is_active:
+				login(request,user)
 				return HttpResponseRedirect('/home')
 			else:
 				return HttpResponse("Esta cuenta de usuario aún no ha sido activada")
@@ -45,6 +47,6 @@ def login(request):
 
 	return render(request, 'vinculapp/login.html', locals())
 
+@login_required(login_url='/')
 def index(request):
-	
-	return render(request, 'vinculapp/master.html', locals())
+	return render(request, 'vinculapp/home.html', locals())
