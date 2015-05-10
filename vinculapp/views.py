@@ -49,4 +49,27 @@ def _login(request):
 
 @login_required(login_url='/')
 def index(request):
+	folders = Folder.objects.filter(profile = request.user.profile, parent = None)
 	return render(request, 'vinculapp/home.html', locals())
+
+@login_required(login_url='/')
+def addfolder(request):
+	if request.POST:
+		form = FolderForm(request.POST)
+		if form.is_valid():
+			folder = form.save(commit = False)
+			folder.profile = request.user.profile
+			folder.save()
+			return HttpResponseRedirect('/home')
+		else:
+			print(form.errors)
+			return HttpResponse(form.errors)
+		
+
+
+
+
+
+
+
+
