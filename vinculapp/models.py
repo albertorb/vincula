@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 
 class Profile(models.Model):
 	user = models.OneToOneField(User)
-	pic = models.TextField(default = '/static/vinculapp/img/example_profile.png')
+	pic = models.ImageField(default = '/static/vinculapp/img/example_profile.png')
 
 	def __unicode__(self):
 		return self.user.get_username()

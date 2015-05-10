@@ -1,0 +1,63 @@
+{% extends 'vinculapp/master.html' %}
+
+{% block body_tag %}<body class="blue-gray">{% endblock %}
+
+{% block content %}
+
+<div class="container row register">
+	<div class="col-md-6 ">
+		<h1>VINCULA <small class="register"><a href="/">Volver al inicio</a></small></h1>
+	</div>
+</div>
+
+<div class="container row center-block register">
+	<div class="col-md-6 col-md-offset-3 ">
+		<div class="panel panel-default">
+		<div class="panel-heading">Nuevo usuario</div>
+			<div class="panel-body">
+			  	<div class="hidden pull-right">
+		  					<img id="preview" class=" img-responsive img-circle" src=""> </img>
+		  				</div>
+			    <form id="reg-form" action="/register/"method="post" enctype="multipart/form-data">{% csrf_token %}
+			    	<div class="row">
+		  				<div class="form-group col-md-12 {% if form.username.errors%} has-error{% endif %}">
+		    				<label class="sr-only" for="email">Nombre de usuario</label>
+		    				<input type="text" class="form-control" id="username" name="username" placeholder="Nombre de usuario">
+		    				{% if form.username.errors%}
+				        			<span id="error" class=""> {{form.username.errors}} </span>
+				        	{% endif %}
+		  				</div>
+		  				<div class="form-group col-md-12 {% if form.email.errors%} has-error{% endif %}">
+		    				<label class="sr-only" for="email">Email</label>
+		    				<input type="text" class="form-control" id="username" name="email" placeholder="Email">
+		    					{% if form.email.errors%}
+				        			<span id="error" class=""> {{form.email.errors}} </span>
+				        		{% endif %}
+		  				</div>
+		  				<div id="" class="form-group col-md-12 ">
+					    		<input type="file" name="pic" class="filestyle" data-input="false">
+		  				</div>
+		  				
+		  				<div class="form-group col-md-12 {% if form.password.errors%} has-error{% endif %}" >
+		    				<label class="sr-only" for="password">Contraseña</label>
+		    				<input type="password" class="form-control " id="password" name="password" placeholder="Contraseña">
+		    				{% if form.password.errors%}
+				        			<span id="error" class=""> {{form.password.errors}} </span>
+				        	{% endif %}
+		  				</div>
+		  				
+		  				<div class="col-md-12">
+		  					<button type="submit" class="btn btn-default center-block">Enviar</button>
+		  				</div>
+		  			</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	$('input[type=file]').bootstrapFileInput();
+$('.file-inputs').bootstrapFileInput();
+
+</script>
+{% endblock %}

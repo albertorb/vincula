@@ -3,8 +3,32 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate
 from .models import *
+from .forms import *
 
 # Create your views here.
+
+def register(request):
+	if request.POST:
+		form = UserForm(request.POST)
+		form2 = ProfileForm(request.POST)
+		if form.is_valid() and form2.is_valid():
+			django = form.save()
+			django.set_password(request.POST['password'])
+			django.save()
+			profile = form2.save(commit=False)
+			print(django)
+			profile.user = django
+			print(profile.user)
+			profile.pic = request.FILES['pic']
+			profile.save()
+			return HttpResponseRedirect('/')
+		else:
+			print(form.errors)
+	else:
+		form = UserForm()
+		form2 = ProfileForm()
+
+	return render(request, 'vinculapp/register.html', locals())
 
 def login(request):
 	errors = False

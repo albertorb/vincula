@@ -28,3 +28,43 @@
 	color: #ffffff;
 	background-color: #455a64;
 }
+
+/* register */
+
+.register h1{
+	color: #ffffff;
+}
+
+.register small{
+	color: white;
+	font-size: 16px;
+}
+
+.register .panel{
+	margin-top:15%;
+}
+
+.register .panel-heading{
+	font-size: 40px;
+	color: #607d8b;
+	background-color: #ffffff;
+	text-align: center;
+}
+
+.register a{
+	color: #ffffff;
+}
+
+.register .btn{
+	color: #ffffff;
+	background-color: #455a64;
+}
+
+.register #error{
+	color: red;
+}
+
+.register #preview{
+	width: 75px;
+	height: 45px;
+}
