@@ -14,6 +14,7 @@ class Folder(models.Model):
 	profile = models.ForeignKey(Profile, default = None)
 	name = models.TextField(max_length=100)
 	parent = models.ForeignKey('self', null = True, blank = True, default = None)
+	pic = models.ImageField(default = None, blank = True, null = True)
 
 	def __unicode__(self):
 		return self.name
