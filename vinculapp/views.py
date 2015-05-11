@@ -53,6 +53,13 @@ def index(request):
 	return render(request, 'vinculapp/home.html', locals())
 
 @login_required(login_url='/')
+def content(request):
+	_folder = Folder.objects.get(id = request.POST['folder'])
+	folders = Folder.objects.filter(profile=request.user.profile, parent=_folder)
+	cards = Card.objects.filter(folder=_folder.id)
+	return render(request, 'vinculapp/content.html', locals())
+
+@login_required(login_url='/')
 def addfolder(request):
 	if request.POST:
 		form = FolderForm(request.POST)

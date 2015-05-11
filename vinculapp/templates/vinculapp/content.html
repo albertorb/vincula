@@ -34,6 +34,14 @@
 	</form>
 {% endfor %}
 
+{% for card in cards %}
+	<div class="col-md-4">
+		<a href="https://{{ card.url }}" class="thumbnail">
+		   {{ card.name }}
+		</a>
+	</div>
+{% endfor %}
+
 </div>
   
 {% endblock %}
