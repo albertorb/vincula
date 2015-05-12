@@ -21,13 +21,13 @@
 		</form>
 	</div>	
 </div>
-<div class="row container center-block home">
+<div class="row container center-block home ">
 	
 {% for folder in folders %}
 	<form id="form{{forloop.counter}}" method="post" action="/content/">{% csrf_token %}
-		<div class="col-md-4">
-		    <a onclick="$('#form{{forloop.counter}}').submit()" class="thumbnail">
-		      {{folder.name}}
+		<div class="col-md-2 col-md-offset-1">
+		    <a onclick="$('#form{{forloop.counter}}').submit()" class="thumbnail" style="background-image:url('/media/{{folder.pic}}'); {%if not folder.pic == None %} color:white;{%endif%}">
+		      <span>{{ folder.name }}</span>
 		    </a>
 		    <input class="hidden" value="{{folder.id}}" name="folder">
 		</div>
