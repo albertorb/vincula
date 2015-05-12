@@ -54,9 +54,9 @@ def index(request):
 
 @login_required(login_url='/')
 def content(request):
-	_folder = Folder.objects.get(id = request.POST['folder'])
-	folders = Folder.objects.filter(profile=request.user.profile, parent=_folder)
-	cards = Card.objects.filter(folder=_folder.id)
+	folder = Folder.objects.get(id = request.POST['folder'])
+	folders = Folder.objects.filter(profile=request.user.profile, parent=folder)
+	cards = Card.objects.filter(folder=folder.id)
 	return render(request, 'vinculapp/content.html', locals())
 
 @login_required(login_url='/')

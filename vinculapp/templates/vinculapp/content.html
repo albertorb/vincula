@@ -1,10 +1,10 @@
 {% extends 'vinculapp/navbar.html' %}
 
 {% block content %}
-<div class="row container center-block home">
+<div class="row container center-block content">
 
 	<div class="col-md-5 col-md-offset-2">
-		<form class="home" action="/addfolder/" method="post"> {% csrf_token %}
+		<form class="content" action="/addfolder/" method="post"> {% csrf_token %}
 			<div class="col-md-6 input-group pull-left">
 				<input type="text" class="form-control" name="name" placeholder='Nueva carpeta'>
 			</div>
@@ -14,20 +14,43 @@
 		</form>
 	</div>
 	<div class="col-md-4">
-		<form class="home" action="addfile" method="post" enctype="multipart/form-data">{% csrf_token %}
+		<form class="content" action="addfile" method="post" enctype="multipart/form-data">{% csrf_token %}
 			<div class="col-md-12 input-group pull-left">
 				<input type="file" class="filestyle" data-buttonText='archivo de configuración' data-input='false' data-iconName='glyphicon-import'>
 			</div>
 		</form>
 	</div>	
 </div>
-<div class="row container center-block home">
+
+<div class="row hidden container center-block content">
+	<div class="col-md-7 col-md-offset-3">
+		<div class="panel panel-default">
+  			<div class="panel-body">
+  				<div class="row">
+  					<div class="col-md-4">
+    					<a class="content back" onclick="window.history.back();"><span class="glyphicon glyphicon-arrow-left"></span></a>
+    				</div>
+    				<div class="col-md-4">
+    					<span class=" folder-title">{{folder.name}}</span>
+    				</div>
+    			</div>
+  			</div>
+		</div>	
+	</div>
+</div>
+<div class="row container center-block content">
+	<div class="col-md-12">
+    	<a class="content back" onclick="window.history.back();">volver a carpeta anterior</a>
+    </div>
+</div>
+</div>
+<div class="row container center-block content">
 	
 {% for folder in folders %}
 	<form id="form{{forloop.counter}}" method="post" action="/content/">{% csrf_token %}
 		<div class="col-md-3" >
 		    <a onclick="$('#form{{forloop.counter}}').submit()" class="thumbnail" style="background-image:url('/media/{{folder.pic}}'); {%if not folder.pic == None %} color:white;{%endif%}">
-		      {{folder.name}}
+		      <span class="content" >{{folder.name}}</span>
 		      
 		    </a>
 		    <input class="hidden" value="{{folder.id}}" name="folder">
@@ -37,8 +60,8 @@
 
 {% for card in cards %}
 	<div class="col-md-4">
-		<a href="{{ card.url }}" class="thumbnail" style="background-image:{%if not card.pic == '' %} url('/media/{{card.pic}}');color:white;{%else%}url('/media/{{card.folder.pic}}'); color:white;{%endif%}">
-		   {{ card.name }}
+		<a href="{{ card.url }}" target="_blank" class="thumbnail card" style="background-image:{%if not card.pic == '' %} url('/media/{{card.pic}}');{%else%}url('/media/{{card.folder.pic}}');{%endif%}">
+		   <span class="content" >{{card.name}}</span>
 		</a>
 	</div>
 {% endfor %}
