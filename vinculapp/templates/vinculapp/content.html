@@ -25,9 +25,10 @@
 	
 {% for folder in folders %}
 	<form id="form{{forloop.counter}}" method="post" action="/content/">{% csrf_token %}
-		<div class="col-md-4">
-		    <a onclick="$('#form{{forloop.counter}}').submit()" class="thumbnail">
+		<div class="col-md-3" >
+		    <a onclick="$('#form{{forloop.counter}}').submit()" class="thumbnail" style="background-image:url('/media/{{folder.pic}}'); {%if not folder.pic == None %} color:white;{%endif%}">
 		      {{folder.name}}
+		      
 		    </a>
 		    <input class="hidden" value="{{folder.id}}" name="folder">
 		</div>
@@ -36,7 +37,7 @@
 
 {% for card in cards %}
 	<div class="col-md-4">
-		<a href="https://{{ card.url }}" class="thumbnail">
+		<a href="{{ card.url }}" class="thumbnail" style="background-image:{%if not card.pic == '' %} url('/media/{{card.pic}}');color:white;{%else%}url('/media/{{card.folder.pic}}'); color:white;{%endif%}">
 		   {{ card.name }}
 		</a>
 	</div>

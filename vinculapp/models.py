@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 
 class Profile(models.Model):
 	user = models.OneToOneField(User)
-	pic = models.ImageField(default = '/static/vinculapp/img/example_profile.png')
+	pic = models.ImageField(upload_to = 'user-pic/', default = '/static/vinculapp/img/example_profile.png')
 
 	def __unicode__(self):
 		return self.user.get_username()
@@ -14,7 +14,7 @@ class Folder(models.Model):
 	profile = models.ForeignKey(Profile, default = None)
 	name = models.TextField(max_length=100)
 	parent = models.ForeignKey('self', null = True, blank = True, default = None)
-	pic = models.ImageField(default = None, blank = True, null = True)
+	pic = models.ImageField(upload_to = 'folders-pic/', default = None, blank = True, null = True)
 
 	def __unicode__(self):
 		return self.name
@@ -24,7 +24,7 @@ class Folder(models.Model):
 class Card(models.Model):
 	name = models.TextField(max_length=100)
 	url = models.TextField()
-	pic = models.TextField(blank=True, null=True, default = '/static/vinculapp/img/example_card.png')
+	pic = models.ImageField(upload_to = 'cards-pic/', blank=True, null=True, default = None)
 	folder = models.ForeignKey(Folder)
 
 	def __unicode__(self):
