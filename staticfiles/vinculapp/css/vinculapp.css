@@ -1,0 +1,165 @@
+.blue-gray{
+	background-color: #607d8b;
+}
+
+.blue-gray-text{
+	color: #607d8b;
+}
+
+.white-text{
+	color: #ffffff;
+}
+
+.gray-light{
+	background-color: #eceff1;
+}
+
+/* Home */
+
+.home .thumbnail{
+	background-color: transparent; ; 
+	background-position: center;
+	color: #ffffff;
+	font-size: 18px;
+	text-align: center;
+	cursor: pointer;
+	width: 100px;
+	height: 100px;
+	background-repeat: no-repeat;
+	background-size: cover;
+	border: 0;
+
+}
+
+.home span{
+	position: relative;
+	top:50%;
+}
+
+
+.home .thumbnail:hover{
+	width: 105px;
+	
+	text-decoration: none;
+}
+
+.home {
+	margin-bottom: 3%;
+}
+
+/* Content */
+
+.content {
+	margin-bottom: 3%;
+	text-align: center;
+}
+
+.content .back{
+	font-size: 14px;
+	color: #607d8b;
+	cursor: pointer;
+	text-decoration: none;
+}
+
+.content .back:hover{
+	font-size: 15px;
+}
+
+.content .folder-title{
+	font-size: 20px;
+}
+
+.content .thumbnail{
+	background-color: transparent; ; 
+	background-position: center;
+	color: #ffffff;
+	font-size: 18px;
+	text-align: center;
+	cursor: pointer;
+	width: 150px;
+	height: 200px;
+	background-repeat: no-repeat;
+	background-size: cover;
+	border: 0;
+
+}
+
+.content .card span{
+	position: relative;
+	top:0%;
+}
+
+
+.content .thumbnail:hover{
+	width: 155px;
+	height: 205px;
+	text-decoration: none;
+}
+
+/* Login */
+
+.login .panel{
+	margin-top: 20%;
+}
+.login h1{
+	font-size: 100px;
+	color: #ffffff;
+}
+
+.login a{
+	color: #ffffff;
+}
+
+.login .btn{
+	color: #ffffff;
+	background-color: #455a64;
+}
+
+/* navbar */
+
+.navbar .header{
+	margin-top: 1%;
+	font-size: 24px;
+	margin-left: 45%;
+
+}
+
+/* register */
+
+.register h1{
+	color: #ffffff;
+}
+
+.register small{
+	color: white;
+	font-size: 16px;
+}
+
+.register .panel{
+	margin-top:15%;
+}
+
+.register .panel-heading{
+	font-size: 40px;
+	color: #2196f3;
+	background-color: #ffffff;
+	text-align: center;
+}
+
+.register a{
+	color: #ffffff;
+}
+
+.register .btn{
+	color: #ffffff;
+	background-color: #2196f3;
+}
+
+.register #error{
+	color: red;
+}
+
+.register #preview{
+	width: 75px;
+	height: 45px;
+}
