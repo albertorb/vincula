@@ -24,9 +24,9 @@ SECRET_FILE = os.path.join(BASE_DIR, 'key.txt')
 SECRET_KEY = open(SECRET_FILE).read().strip()
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-TEMPLATE_DEBUG = False
+TEMPLATE_DEBUG = True
 
 # Honor the 'X-FORWARDED-PROTO' header for request.is_secure()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
