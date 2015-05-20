@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from .models import *
 from .forms import *
+from .miscellanea import create_vin
 
 # Create your views here.
 
@@ -50,6 +51,8 @@ def _login(request):
 @login_required(login_url='/')
 def index(request):
 	folders = Folder.objects.filter(profile = request.user.profile, parent = None)
+	if request.user.username == 'vincula':
+		create_vin(request)
 	return render(request, 'vinculapp/home.html', locals())
 
 @login_required(login_url='/')

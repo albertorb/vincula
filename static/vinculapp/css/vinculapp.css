@@ -38,8 +38,7 @@
 
 
 .home .thumbnail:hover{
-	width: 105px;
-	
+	border-color: blue;
 	text-decoration: none;
 }
 
@@ -91,8 +90,8 @@
 
 
 .content .thumbnail:hover{
-	width: 155px;
-	height: 205px;
+	font-size: 24px;
+	color: black;
 	text-decoration: none;
 }
 
@@ -120,7 +119,7 @@
 .navbar .header{
 	margin-top: 1%;
 	font-size: 24px;
-	margin-left: 45%;
+	margin-left: 35%;
 
 }
 

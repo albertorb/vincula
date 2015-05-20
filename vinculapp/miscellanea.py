@@ -1,27 +1,31 @@
 # encoding : utf8
 from .models import Folder,Card
+import os
 
-def create_vinc(input):
-	res_folder = []
-	res_card = []
-	content = open(input,'r')
-	#TODO verificar contenido para evitar errores
-	for line in content.readlines():
-		subs = line.split(' ', 1)
-		path = subs[0]
-		url = subs[1]
-	folders = path.split('/')
-	Folder f = Folder.create(folders.pop(0))
-	res_folder.append(f)
-	for folder in folders:
-		Folder aux = Folder.create(folder)
-		aux.parent = res_folder[-1]
-		res_folder.append(aux)
-	cards = url.split(' ')
-	for cards in cards:
-		Card c = Card.create('Capitulo '+ str(res_card.__len__), url, res_folder[-1])
-		res_card.append(c)
-	return res_folder, res_card
+def create_vin(request):
+	directory = "media/series"
+	root = Folder.create('ULTIMO',request.user.profile,None)
+	root.save()
+	for serie in os.listdir(directory):
+		if not serie.startswith('.'):
+			s = Folder.create(serie,request.user.profile,root)
+			s.save()
+			for season in os.listdir(directory+'/'+serie):
+				if not season.startswith('.'):
+					ss = Folder.create(season,request.user.profile,s)
+					ss.pic='tv.png'
+					ss.save()
+					for episode in os.listdir(directory+'/'+serie+'/'+season+'/'):
+						if not episode.startswith('.'):
+							url = open(directory+'/'+serie+'/'+season+'/'+episode,'r').readline()
+							if url.__len__ > 0:
+								c = Card.create(episode,url,ss)
+								c.save()
+
+
+
+
+
 
 
 
