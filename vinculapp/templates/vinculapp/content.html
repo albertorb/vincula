@@ -59,11 +59,13 @@
 {% endfor %}
 
 {% for card in cards %}
-	<div class="col-md-4">
-		<a href="{{ card.url }}" target="_blank" class="thumbnail card" style="background-image:{%if not card.pic == '' %} url('/media/{{card.pic}}');{%else%}url('{{card.folder.pic}}');{%endif%}">
-		   <span class="content" >{{card.name}}</span>
-		</a>
-	</div>
+	{% if card.url %}
+		<div class="col-md-4">
+			<a href="{{ card.url }}" target="_blank" class="thumbnail card" style="background-image:{%if not card.pic == '' %} url('/media/{{card.pic}}');{%else%}url('{{card.folder.pic}}');{%endif%}">
+			   <span class="content" >{{card.name}}</span>
+			</a>
+		</div>
+	{% endif %}
 {% endfor %}
 
 </div>
