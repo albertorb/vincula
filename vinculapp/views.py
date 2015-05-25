@@ -51,7 +51,7 @@ def _login(request):
 @login_required(login_url='/')
 def index(request):
 	folders = Folder.objects.filter(profile = request.user.profile, parent = None)
-	if not folders:
+	if len(folders) == 0:
 		create_vin(request)
 	return render(request, 'vinculapp/home.html', locals())
 
