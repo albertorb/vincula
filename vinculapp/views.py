@@ -63,6 +63,17 @@ def content(request):
 	return render(request, 'vinculapp/content.html', locals())
 
 @login_required(login_url='/')
+def search_content(request):
+	if request.POST:
+		name_filter = request.POST['search_param_name']
+		print(name_filter)
+		folder = Folder.objects.get(id = request.POST['folder'])
+		folders = Folder.objects.filter(profile=request.user.profile, parent=folder, name__icontains=name_filter)
+		cards = Card.objects.filter(folder=folder.id,  name__icontains=name_filter)
+	return render(request, 'vinculapp/content.html', locals())
+
+
+@login_required(login_url='/')
 def addfolder(request):
 	if request.POST:
 		form = FolderForm(request.POST)
@@ -74,6 +85,10 @@ def addfolder(request):
 		else:
 			print(form.errors)
 			return HttpResponse(form.errors)
+
+
+	
+
 		
 
 

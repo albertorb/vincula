@@ -26,7 +26,7 @@
 {% for folder in folders %}
 	<form id="form{{forloop.counter}}" method="post" action="/content/">{% csrf_token %}
 		<div class="col-md-2 col-md-offset-1">
-		    <a onclick="$('#form{{forloop.counter}}').submit()" class="thumbnail" style="background-image:url('{{folder.pic}}'); {%if not folder.pic == None %} color:white;{%endif%}">
+		    <a onclick="$('#form{{forloop.counter}}').submit()" class="thumbnail" style="background-image:url('{{MEDIA_URL}}{{folder.pic}}'); {%if not folder.pic == None %} color:white;{%endif%}">
 		      <span>{{ folder.name }}</span>
 		    </a>
 		    <input class="hidden" value="{{folder.id}}" name="folder">
