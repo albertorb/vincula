@@ -4,7 +4,7 @@ import os
 
 def create_vin(request):
 	directory = "media/series"
-	root = Folder.create('SERIES',request.user.profile,None,'example_folder.png')
+	root = Folder.create('SERIES',request.user.profile,None,'/media/example_folder.png')
 	root.save()
 	for serie in os.listdir(directory):
 		if not serie.startswith('.'):
