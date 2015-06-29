@@ -25,8 +25,6 @@ class Folder(models.Model):
 	def __unicode__(self):
 		return self.name
 
-
-
 class Card(models.Model):
 	name = models.TextField(max_length=255)
 	url = models.TextField(max_length=255)
@@ -40,5 +38,7 @@ class Card(models.Model):
 
 	def __unicode__(self):
 		return self.name
+
+
 
 

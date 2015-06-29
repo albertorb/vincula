@@ -3,9 +3,11 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_exempt
 from .models import *
 from .forms import *
 from .miscellanea import create_vin
+import json
 
 # Create your views here.
 
@@ -18,9 +20,7 @@ def register(request):
 			django.set_password(request.POST['password'])
 			django.save()
 			profile = form2.save(commit=False)
-			print(django)
 			profile.user = django
-			print(profile.user)
 			profile.pic = request.FILES['pic']
 			profile.save()
 			return HttpResponseRedirect('/')
@@ -58,9 +58,20 @@ def index(request):
 @login_required(login_url='/')
 def content(request):
 	folder = Folder.objects.get(id = request.POST['folder'])
-	folders = Folder.objects.filter(profile=request.user.profile, parent=folder)
-	cards = Card.objects.filter(folder=folder.id)
+	folders = Folder.objects.filter(profile=request.user.profile, parent=folder).order_by('name')
+	cards = Card.objects.filter(folder=folder.id).order_by('name')
 	return render(request, 'vinculapp/content.html', locals())
+
+@login_required(login_url='/')
+def search_content(request):
+	if request.POST:
+		name_filter = request.POST['search_param_name']
+		print(name_filter)
+		folder = Folder.objects.get(id = request.POST['folder'])
+		folders = Folder.objects.filter(profile=request.user.profile, parent=folder, name__icontains=name_filter)
+		cards = Card.objects.filter(folder=folder.id,  name__icontains=name_filter)
+	return render(request, 'vinculapp/content.html', locals())
+
 
 @login_required(login_url='/')
 def addfolder(request):
@@ -74,6 +85,50 @@ def addfolder(request):
 		else:
 			print(form.errors)
 			return HttpResponse(form.errors)
+
+# API METHODS #
+
+@csrf_exempt
+def api_login(request):
+	response_data = {}
+	if request.method == 'POST':
+		data = json.loads(request.body)
+		user = authenticate(username = data['username'], password = data['password'])
+		if user is not None:
+			if user.is_active:
+				#login(request,user)
+				response_data['result'] = 'OK'
+			else:
+				response_data['result'] = 'NOT_ACTIVE'
+		else:
+			response_data['result'] = 'INVALID_CREDENTIALS'
+
+	return HttpResponse(json.dumps(response_data), content_type='application/json')
+
+@csrf_exempt
+def api_register(request):
+	response_data = {}
+	if request.method == 'POST':
+		form = UserForm(request.POST)
+		form2 = ProfileForm(request.POST)
+		if form.is_valid() and form2.is_valid():
+			django = form.save()
+			django.set_password(request.POST['password'])
+			django.save()
+			profile = form2.save(commit=False)
+			profile.user = django
+			profile.pic = request.FILES['pic']
+			profile.save()
+			response_data['result'] = 'OK'
+		else:
+			response_data['result'] = 'INVALID_FORM'
+
+	return HttpResponse(json.dumps(response_data), content_type='application/json')
+
+
+
+	
+
 		
 
 
