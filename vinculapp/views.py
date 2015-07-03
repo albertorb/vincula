@@ -21,7 +21,8 @@ def register(request):
 			django.save()
 			profile = form2.save(commit=False)
 			profile.user = django
-			profile.pic = request.FILES['pic']
+			if request.FILES:
+				profile.pic = request.FILES['pic']
 			profile.save()
 			return HttpResponseRedirect('/')
 		else:
@@ -111,13 +112,19 @@ def api_register(request):
 	if request.method == 'POST':
 		form = UserForm(request.POST)
 		form2 = ProfileForm(request.POST)
+		print(form)
+		print(form2)
+		print(request.POST['username'])
+		print(request.POST['email'])
+		print(request.POST['password'])
 		if form.is_valid() and form2.is_valid():
 			django = form.save()
 			django.set_password(request.POST['password'])
 			django.save()
 			profile = form2.save(commit=False)
 			profile.user = django
-			#profile.pic = request.FILES['pic']
+			if request.FILES:
+				profile.pic = request.FILES['pic']
 			profile.save()
 			response_data['result'] = 'OK'
 		else:
