@@ -117,7 +117,7 @@ def api_register(request):
 			django.save()
 			profile = form2.save(commit=False)
 			profile.user = django
-			profile.pic = request.FILES['pic']
+			#profile.pic = request.FILES['pic']
 			profile.save()
 			response_data['result'] = 'OK'
 		else:
