@@ -112,7 +112,9 @@ def api_register(request):
 	response_data = {}
 	if request.method == 'POST':
 		data = json.loads(request.body)
-		user = User(username=data['username'], email=data['email'], password=data['password']).save()
+		user = User(username=data['username'], email=data['email'], password=data['password'])
+		user.set_password(data['password'])
+		user.save()
 		user = User.objects.get(username=data['username'])
 		print user
 		profile = Profile()
