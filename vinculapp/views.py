@@ -135,9 +135,10 @@ def api_folders(request):
 		profile = Profile.objects.get(user=user)
 		folders = Folder.objects.filter(profile = profile, parent = None)
 		serialized = serializers.serialize('python', folders)
+		folder_serialized = [f['fields'] for f in serialized]
 		if len(folders) == 0:
 			create_vin(request)
-		return HttpResponse(json.dumps(serialized), content_type='application/json')
+		return HttpResponse(json.dumps(folder_serialized), content_type='application/json')
 
 
 
