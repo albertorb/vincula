@@ -117,11 +117,6 @@ def api_register(request):
 		form.email = data['email']
 		form2 = ProfileForm()
 		form2.user = form
-		print(form)
-		print(form2)
-		print(request.POST['username'])
-		print(request.POST['email'])
-		print(request.POST['password'])
 		if form.is_valid() and form2.is_valid():
 			django = form.save()
 			django.set_password(request.POST['password'])
