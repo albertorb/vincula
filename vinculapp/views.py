@@ -110,8 +110,13 @@ def api_login(request):
 def api_register(request):
 	response_data = {}
 	if request.method == 'POST':
-		form = UserForm(request.POST)
-		form2 = ProfileForm(request.POST)
+		data = json.loads(request.body)
+		form = UserForm()
+		form.username = data['username']
+		form.password = data['password']
+		form.email = data['email']
+		form2 = ProfileForm()
+		form2.user = form
 		print(form)
 		print(form2)
 		print(request.POST['username'])
