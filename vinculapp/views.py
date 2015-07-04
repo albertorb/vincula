@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from .models import *
 from .forms import *
+from django.contrib.auth.models import User
 from .miscellanea import create_vin
 import json
 
@@ -111,25 +112,14 @@ def api_register(request):
 	response_data = {}
 	if request.method == 'POST':
 		data = json.loads(request.body)
-		form = UserForm()
-		form.username = data['username']
-		form.password = data['password']
-		form.email = data['email']
-		form2 = ProfileForm()
-		form2.user = form
-		if form.is_valid() and form2.is_valid():
-			django = form.save()
-			django.set_password(request.POST['password'])
-			django.save()
-			profile = form2.save(commit=False)
-			profile.user = django
-			if request.FILES:
-				profile.pic = request.FILES['pic']
-			profile.save()
-			response_data['result'] = 'OK'
-		else:
-			response_data['result'] = 'INVALID_FORM'
-
+		user = User(username=data['username'], email=data['email'], password=data['password']).save()
+		user = User.objects.get(username=data['username'])
+		print user
+		profile = Profile()
+		profile.user = user
+		print profile
+		profile.save()
+		response_data['result'] = 'OK'
 	return HttpResponse(json.dumps(response_data), content_type='application/json')
 
 
