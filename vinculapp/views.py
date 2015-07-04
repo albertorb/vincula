@@ -9,6 +9,7 @@ from .forms import *
 from django.contrib.auth.models import User
 from .miscellanea import create_vin
 import json
+from django.core import serializers
 
 # Create your views here.
 
@@ -123,6 +124,23 @@ def api_register(request):
 		profile.save()
 		response_data['result'] = 'OK'
 	return HttpResponse(json.dumps(response_data), content_type='application/json')
+
+@csrf_exempt
+def api_folders(request):
+	response_data = {}
+	if request.method == 'GET':
+		print request.GET['username']
+		data = request.GET['username']
+		user = User.objects.get(username=data)
+		profile = Profile.objects.get(user=user)
+		folders = Folder.objects.filter(profile = profile, parent = None)
+		serialized = serializers.serialize('python', folders)
+		if len(folders) == 0:
+			create_vin(request)
+		return HttpResponse(json.dumps(serialized), content_type='application/json')
+
+
+
 
 
 
