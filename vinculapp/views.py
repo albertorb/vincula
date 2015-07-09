@@ -147,9 +147,7 @@ def api_folder(request):
 	response_data = {}
 	data_serialized=[]
 	if request.method == 'GET':
-		data = request.GET['username']
-		user = User.objects.get(username=data)
-		profile = Profile.objects.get(user=user)
+		profile = Profile.objects.get(id=request.GET['profile'])
 		parent = request.GET['parent']
 		folder = Folder.objects.filter(profile=profile, name=parent)[0]
 		folders = Folder.objects.filter(profile=profile, parent=folder).order_by('name')
@@ -163,11 +161,8 @@ def api_folder(request):
 @csrf_exempt
 def addfolder(request):
 	response_data = {}
-	print "hola"
 	if request.method == 'POST':
-		print "adios"
 		data = json.loads(request.body)
-		print data
 		data_username = data['username']
 		user = User.objects.get(username=data_username)
 		profile = Profile.objects.get(user=user)
