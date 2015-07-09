@@ -14,6 +14,8 @@ urlpatterns = [
     url(r'^api/login/', views.api_login, name='apilogin'),
     url(r'^api/register/', views.api_register, name='apiregister'),
     url(r'^api/folders/', views.api_folders, name='apifolders'),
+    url(r'^api/folder/', views.api_folder, name='apifolder'),
+    url(r'^api/add/folder/', views.addfolder, name='apiaddfolder'),
     url(r'^$', views._login, name='login'),
 ]
 

@@ -131,7 +131,7 @@ def api_folders(request):
 		data = request.GET['username']
 		user = User.objects.get(username=data)
 		profile = Profile.objects.get(user=user)
-		if request.GET['parent']:
+		if 'parent' in request.GET:
 			data_parent = request.GET['parent']
 			folders = Folders.objects.filter(profile = profile, parent = data_parent)
 		else:
@@ -140,36 +140,42 @@ def api_folders(request):
 		folder_serialized = [f['fields'] for f in serialized]
 		if len(folders) == 0:
 			create_vin(request)
-		return HttpResponse(json.dumps(folder_serialized), content_type='application/json')
+	return HttpResponse(json.dumps(folder_serialized), content_type='application/json')
 
 @csrf_exempt
 def api_folder(request):
 	response_data = {}
-	if request.method = 'GET':
+	data_serialized=[]
+	if request.method == 'GET':
 		data = request.GET['username']
 		user = User.objects.get(username=data)
 		profile = Profile.objects.get(user=user)
 		parent = request.GET['parent']
-		folder = Folder.objects.get(profile=profile, name=parent)
+		folder = Folder.objects.filter(profile=profile, name=parent)[0]
 		folders = Folder.objects.filter(profile=profile, parent=folder).order_by('name')
 		cards = Card.objects.filter(folder=folder.id).order_by('name')
 		serialized = serializers.serialize('python', folders)
 		serialized2 = serializers.serialize('python', cards)
 		data_serialized = [f['fields'] for f in serialized]
 		data_serialized.extend([f['fields'] for f in serialized2])
-		return HttpResponse(json.dumps(data_serialized), content_type='application/json')
+	return HttpResponse(json.dumps(data_serialized), content_type='application/json')
 
 @csrf_exempt
 def addfolder(request):
+	response_data = {}
+	print "hola"
 	if request.method == 'POST':
-		data = request.loads(request.body)
+		print "adios"
+		data = json.loads(request.body)
+		print data
 		data_username = data['username']
 		user = User.objects.get(username=data_username)
 		profile = Profile.objects.get(user=user)
-		folder = Folder(name=data['name'], parent = data['parent'], profile = profile)
+		parent = Folder.objects.get(name=data['parent'], profile=profile)
+		folder = Folder(name=data['name'], parent = parent, profile = profile)
 		folder.save()
 		response_data['result'] = 'OK'
-		return HttpResponse(json.dumps(response_data), content_type='application/json')
+	return HttpResponse(json.dumps(response_data), content_type='application/json')
 
 
 
