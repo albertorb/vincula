@@ -128,7 +128,6 @@ def api_register(request):
 def api_folders(request):
 	response_data = {}
 	if request.method == 'GET':
-		print request.GET['username']
 		profile = Profile.objects.get(id=request.GET['profile'])
 		if 'parent' in request.GET:
 			data_parent = request.GET['parent']
