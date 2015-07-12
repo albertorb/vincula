@@ -163,12 +163,24 @@ def addfolder(request):
 	response_data = {}
 	if request.method == 'POST':
 		data = json.loads(request.body)
-		data_username = data['username']
-		user = User.objects.get(username=data_username)
-		profile = Profile.objects.get(user=user)
+		data_profile = int(data['profile'])
+		profile = Profile.objects.get(id=profile)
 		parent = Folder.objects.get(name=data['parent'], profile=profile)
 		folder = Folder(name=data['name'], parent = parent, profile = profile)
 		folder.save()
+		response_data['result'] = 'OK'
+	return HttpResponse(json.dumps(response_data), content_type='application/json')
+
+@csrf_exempt
+def addcard(request):
+	response_data = {}
+	if request.method == 'POST':
+		data = json.loads(request.body)
+		data_profile = int(data['profile'])
+		profile = Profile.objects.get(id=data_profile)
+		parent = Folder.objects.get(name=data['parent'], profile=profile)
+		card = Card(name=data['name'], folder = parent, url = data['url'])
+		card.save()
 		response_data['result'] = 'OK'
 	return HttpResponse(json.dumps(response_data), content_type='application/json')
 
