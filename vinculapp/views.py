@@ -97,10 +97,11 @@ def api_login(request):
 	if request.method == 'POST':
 		data = json.loads(request.body)
 		user = authenticate(username = data['username'], password = data['password'])
+		profile = Profile.objects.get(user=user)
 		if user is not None:
 			if user.is_active:
 				#login(request,user)
-				response_data['result'] = 'OK'
+				response_data['result'] = profile.id
 			else:
 				response_data['result'] = 'NOT_ACTIVE'
 		else:
@@ -120,7 +121,7 @@ def api_register(request):
 		profile = Profile()
 		profile.user = user
 		profile.save()
-		response_data['result'] = 'OK'
+		response_data['result'] = profile.id
 	return HttpResponse(json.dumps(response_data), content_type='application/json')
 
 @csrf_exempt
@@ -128,9 +129,7 @@ def api_folders(request):
 	response_data = {}
 	if request.method == 'GET':
 		print request.GET['username']
-		data = request.GET['username']
-		user = User.objects.get(username=data)
-		profile = Profile.objects.get(user=user)
+		profile = Profile.objects.get(id=request.GET['profile'])
 		if 'parent' in request.GET:
 			data_parent = request.GET['parent']
 			folders = Folders.objects.filter(profile = profile, parent = data_parent)
