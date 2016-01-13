@@ -6,7 +6,7 @@ def create_vin(request):
 	#topics = ['series', 'NBA']
 	#for fld in topics:
 	directory = "media/NBA" #"media/%s" % fld
-	root = Folder.create(fld,request.user.profile,None,'/media/example_folder.png')
+	root = Folder.create('NBA',request.user.profile,None,'/media/example_folder.png')
 	root.save()
 	for serie in os.listdir(directory):
 		if not serie.startswith('.'):
