@@ -16,7 +16,7 @@
 	<div class="col-md-4">
 		<form class="home" action="/import/" method="post" enctype="multipart/form-data">{% csrf_token %}
 			<div class="col-md-12 input-group pull-left">
-				<input type="file" class="filestyle" data-buttonText='archivo de configuración' data-input='false' data-iconName='glyphicon-import'>
+				<input name='file' type="file" class="filestyle" data-buttonText='archivo de configuración' data-input='false' data-iconName='glyphicon-import'>
 				<button type="submit" class="btn btn-default">
 			</div>
 		</form>
