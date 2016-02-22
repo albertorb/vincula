@@ -7,7 +7,7 @@ from django.views.decorators.csrf import csrf_exempt
 from .models import *
 from .forms import *
 from django.contrib.auth.models import User
-from .miscellanea import create_vin
+from .miscellanea import create_vin, import_data
 import json
 from django.core import serializers
 
@@ -182,22 +182,20 @@ def addcard(request):
 		response_data['result'] = 'OK'
 	return HttpResponse(json.dumps(response_data), content_type='application/json')
 
-
-
-
-
-
-
-
-
-	
-
-		
-
-
-
-
-
-
-
-
+@csrf_exempt
+def import_file(request):
+	response_data = {'result': 'Bad content'}
+	status = 422
+	if request.method == 'POST':
+		f = request.FILES['file']
+		import_file = ''
+		for chunk in f.chunks():
+			import_file =  '%s%s' %(import_file, chunk)
+		body = json.loads(import_file)
+		parent_folder = body['parent']
+		data = body['data']
+		res = import_data(request, parent_folder, data)
+		if res is True:
+			response_data = {'result': 'OK'}
+			status = 200
+	return HttpResponse(json.dumps(response_data), status=status, content_type='application/json')

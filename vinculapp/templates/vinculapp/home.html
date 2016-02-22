@@ -14,15 +14,15 @@
 		</form>
 	</div>
 	<div class="col-md-4">
-		<form class="home" action="addfile" method="post" enctype="multipart/form-data">{% csrf_token %}
+		<form class="home" action="/import/" method="post" enctype="multipart/form-data">{% csrf_token %}
 			<div class="col-md-12 input-group pull-left">
 				<input type="file" class="filestyle" data-buttonText='archivo de configuración' data-input='false' data-iconName='glyphicon-import'>
 			</div>
 		</form>
-	</div>	
+	</div>
 </div>
 <div class="row container center-block home ">
-	
+
 {% for folder in folders %}
 	<form id="form{{forloop.counter}}" method="post" action="/content/">{% csrf_token %}
 		<div class="col-md-2 col-md-offset-1">
@@ -35,5 +35,5 @@
 {% endfor %}
 
 </div>
-  
+
 {% endblock %}

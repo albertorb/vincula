@@ -1,6 +1,24 @@
 # encoding : utf8
 from .models import Folder,Card
 import os
+import json
+
+def import_data(request, parent, data):
+	"""
+	Transform json file into vincula objects
+	Every key of the json input will be transformed to a folder, and every
+	value to links (Even arrays).
+	Maximum depth allowed is 1, for security reasons, at the moment.
+	"""
+	# if not isinstance(data, dict):
+	# 	data = json.loads(data)
+	for folder, cards in data.iteritems():
+		f_parent = Folder.create(folder, request.user.profile, parent, '/media/example_folder.png')
+		f_parent.save()
+		for name, url in cards.iteritems():
+			card = Card.create(name, url, f_parent)
+			card.save()
+	return True
 
 def create_vin(request):
 	topics = ['series', 'NBA']
