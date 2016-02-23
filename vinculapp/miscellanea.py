@@ -33,7 +33,7 @@ def create_vin(request):
 				for season in os.listdir(directory+'/'+serie):
 					if not season.startswith('.'):
 						if fld == 'NBA':
-							pic = '/%s/%s/%s/%s' %(directory, serie, season, '/media/example_folder.png')
+							pic = '/media/example_folder.png'
 						else:
 							pic = '/'+directory+'/'+serie+'/'+season+'/season.jpeg'
 						if s.pic == None:
@@ -44,12 +44,14 @@ def create_vin(request):
 						for episode in os.listdir(directory+'/'+serie+'/'+season+'/'):
 							if not episode.startswith('.') and '.jpeg' not in episode:
 								if fld == 'NBA':
-									pic = '/%s/%s/%s/%s' %(directory, serie, season, episode+'.jpeg')
+									pic = '/media/example_folder.png'
 								else:
 									pic = '/'+directory+'/'+serie+'/'+season+'/season.jpeg'
 								url = open(directory+'/'+serie+'/'+season+'/'+episode,'r').readline()
 								if url.__len__ > 0:
 									c = Card.create(episode,url,ss)
+									if fld == 'NBA':
+										c.pic = '/%s/%s/%s/%s' %(directory, serie, season, episode+'.jpeg')
 									c.save()
 
 def slugfy(string):
