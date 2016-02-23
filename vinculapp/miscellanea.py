@@ -1,7 +1,9 @@
 # encoding : utf8
-from .models import Folder,Card
+from models import Folder,Card
 import os
 import json
+import logging
+logging.basicConfig(level=logging.INFO)
 
 def import_data(request, parent, data):
 	"""
@@ -23,10 +25,12 @@ def import_data(request, parent, data):
 def create_vin(request):
 	topics = ['NBA']
 	for fld in topics:
+		logging.info('Entra en bucle para %s' % fld)
 		directory = "media/%s" % fld
 		root = Folder.create(fld,request.user.profile,None,'/media/example_folder.png')
 		root.save()
 		for serie in os.listdir(directory):
+			logging.info('Entra en bucle series para %s' % serie)
 			if not serie.startswith('.'):
 				s = Folder.create(serie,request.user.profile,root,None)
 				s.pic = None #TODO revisar codigo inutil
@@ -51,7 +55,7 @@ def create_vin(request):
 								if url.__len__ > 0:
 									c = Card.create(episode,url,ss)
 									if fld == 'NBA':
-										c.pic = '/%s/%s/%s/%s' %(directory, serie, season, episode+'.jpeg')
+										c.pic = fld+'/'+serie+'/'+season +'/'+ episode+'.jpeg'
 									c.save()
 
 def slugfy(string):
