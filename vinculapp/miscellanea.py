@@ -21,7 +21,7 @@ def import_data(request, parent, data):
 	return True
 
 def create_vin(request):
-	topics = ['series', 'NBA']
+	topics = ['NBA']
 	for fld in topics:
 		directory = "media/%s" % fld
 		root = Folder.create(fld,request.user.profile,None,'/media/example_folder.png')
@@ -43,10 +43,10 @@ def create_vin(request):
 						ss.save()
 						for episode in os.listdir(directory+'/'+serie+'/'+season+'/'):
 							if not episode.startswith('.') and '.jpeg' not in episode:
-								if fld == 'NBA':
-									pic = '/media/example_folder.png'
-								else:
-									pic = '/'+directory+'/'+serie+'/'+season+'/season.jpeg'
+								# if fld == 'NBA':
+								# 	pic = '/media/example_folder.png'
+								# else:
+								# 	pic = '/'+directory+'/'+serie+'/'+season+'/season.jpeg'
 								url = open(directory+'/'+serie+'/'+season+'/'+episode,'r').readline()
 								if url.__len__ > 0:
 									c = Card.create(episode,url,ss)
