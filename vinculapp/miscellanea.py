@@ -32,14 +32,21 @@ def create_vin(request):
 				s.pic = None #TODO revisar codigo inutil
 				for season in os.listdir(directory+'/'+serie):
 					if not season.startswith('.'):
-						pic = '/'+directory+'/'+serie+'/'+season+'/season.jpeg'
+						if fld == 'NBA':
+							pic = '/%s/%s/%s/%s' %(directory, serie, season, '/media/example_folder.png')
+						else:
+							pic = '/'+directory+'/'+serie+'/'+season+'/season.jpeg'
 						if s.pic == None:
 							s.pic = pic
 							s.save()
 						ss = Folder.create(season,request.user.profile,s,pic)
 						ss.save()
 						for episode in os.listdir(directory+'/'+serie+'/'+season+'/'):
-							if not episode.startswith('.') and episode != 'season.jpeg':
+							if not episode.startswith('.') and '.jpeg' not in episode:
+								if fld == 'NBA':
+									pic = '/%s/%s/%s/%s' %(directory, serie, season, episode+'.jpeg')
+								else:
+									pic = '/'+directory+'/'+serie+'/'+season+'/season.jpeg'
 								url = open(directory+'/'+serie+'/'+season+'/'+episode,'r').readline()
 								if url.__len__ > 0:
 									c = Card.create(episode,url,ss)
